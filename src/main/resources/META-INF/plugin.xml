@@ -45,6 +45,10 @@
                 instance="com.murphy.config.AndConfigurable"
                 displayName="AndProguard"/>
     </extensions>
+    <extensions defaultExtensionNs="org.jetbrains.kotlin">
+        <!--suppress PluginXmlValidity -->
+        <supportsKotlinPluginMode supportsK2="true"/>
+    </extensions>
     <actions>
         <group id="and-proguard-group" text="&amp;Proguard" popup="true">
             <add-to-group group-id="ProjectViewPopupMenu" anchor="first"/>

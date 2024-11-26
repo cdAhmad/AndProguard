@@ -20,7 +20,7 @@ fun ResourceReferencePsiElement.findIdReference(scope: SearchScope): List<PsiRef
     val bindingModuleCache = LayoutBindingModuleCache.getInstance(delegate.androidFacet ?: return null)
     val groups = bindingModuleCache.bindingLayoutGroups
     val fieldName = DataBindingUtil.convertAndroidIdToJavaFieldName(resourceReference.name)
-    return groups.flatMap { bindingModuleCache.getLightBindingClasses(it) }
+    return groups.flatMap { group -> bindingModuleCache.getLightBindingClasses { group == it } }
         .mapNotNull { it -> it.allFields.find { field -> field.name == fieldName } }
         .map { ReferencesSearch.search(it, scope).findAll() }
         .flatten()
@@ -31,7 +31,7 @@ fun ResourceReferencePsiElement.findLayoutReference(scope: SearchScope): List<Ps
     val groups = bindingModuleCache.bindingLayoutGroups
     val className = DataBindingUtil.convertFileNameToJavaClassName(resourceReference.name) + "Binding"
     val layoutGroup = groups.firstOrNull { it.mainLayout.className == className }
-    return bindingModuleCache.getLightBindingClasses(layoutGroup ?: return null)
+    return bindingModuleCache.getLightBindingClasses { it == layoutGroup }
         .map { ReferencesSearch.search(it, scope).findAll() }
         .flatten()
 }
