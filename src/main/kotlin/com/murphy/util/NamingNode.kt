@@ -46,8 +46,7 @@ class NamingNode(
 
 fun String.parseNode(): NamingNode {
     val element = parseNodeAny(this)
-    return if (element is NamingNode) element
-    else NamingNode(Pair(1, 1), element)
+    return element as? NamingNode ?: NamingNode(Pair(1, 1), element)
 }
 
 private fun parseNodeAny(content: String): Any {

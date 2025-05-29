@@ -24,9 +24,9 @@ data class NamingRule(
     private val cumulativeProbability: Triple<Double, Double, Double>
         get() {
             val letterRatio = if (case != 0) letterWeight else 0.0
-            val comboRatio = if (likeWord == 2) config.comboWeight else 0.0
-            val digitRatio = if (digit) config.digitWeight else 0.0
-            val underlineRatio = if (underline) config.underlineWeight else 0.0
+            val comboRatio = if (likeWord == 2) state.comboWeight else 0.0
+            val digitRatio = if (digit) state.digitWeight else 0.0
+            val underlineRatio = if (underline) state.underlineWeight else 0.0
             val total = letterRatio + comboRatio + digitRatio + underlineRatio
             val first = letterRatio / total
             val second = first + comboRatio / total
@@ -47,10 +47,10 @@ data class NamingRule(
     fun generateRandomName(wordLength: Int): String {
         if (wordLength == 0) return ""
         val (letterCum, comboCum, digitCum) = cumulativeProbability
-        val repeatable = (case == 0 && !digit && likeWord <= 0) || config.repeatFactor >= 1
+        val repeatable = (case == 0 && !digit && likeWord <= 0) || state.repeatFactor >= 1
         return buildString {
             fun checkAppend(char: Char): Boolean {
-                return repeatable || char != lastOrNull() || Random.nextDouble() < config.repeatFactor
+                return repeatable || char != lastOrNull() || Random.nextDouble() < state.repeatFactor
             }
 
             val firstChar = when (hump) {
@@ -110,7 +110,7 @@ data class NamingRule(
     }
 
     companion object {
-        private val config by lazy { AndConfigState.getInstance() }
+        private val state by lazy { AndConfigState.getInstance().state }
     }
 }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.murphy.ui.AndProguardForm">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.murphy.ui.AndProguardConfig">
   <grid id="27dc6" binding="rootPane" layout-manager="GridLayoutManager" row-count="13" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
@@ -93,7 +93,7 @@
               <text value="&amp;Resource" noi18n="true"/>
             </properties>
           </component>
-          <component id="3e7b" class="javax.swing.JTextField" binding="resFileRule">
+          <component id="3e7b" class="javax.swing.JTextField" binding="layoutRule">
             <constraints>
               <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="0" height="-1"/>
@@ -107,7 +107,7 @@
             </constraints>
             <properties>
               <labelFor value="3e7b"/>
-              <text value="ResFile" noi18n="true"/>
+              <text value="&amp;Layout" noi18n="true"/>
             </properties>
           </component>
           <hspacer id="7273f">
@@ -140,7 +140,7 @@
             </constraints>
             <properties>
               <labelFor value="2c007"/>
-              <text value="Directory" noi18n="true"/>
+              <text value="&amp;Directory" noi18n="true"/>
             </properties>
           </component>
           <vspacer id="cb30b">

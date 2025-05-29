@@ -4,13 +4,14 @@ import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.project.DumbService
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Computable
-import com.intellij.psi.*
+import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiMethod
+import com.intellij.psi.PsiNamedElement
 import com.intellij.psi.impl.getFieldOfGetter
 import com.intellij.psi.impl.getFieldOfSetter
 import com.intellij.psi.xml.XmlAttributeValue
 import com.intellij.refactoring.RefactoringFactory
 import com.murphy.util.LogUtil
-import kotlinx.coroutines.Runnable
 import java.util.concurrent.TimeUnit
 
 fun PsiElement.childrenDfsSequence(): Sequence<PsiElement> =

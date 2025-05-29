@@ -46,7 +46,6 @@
                 displayName="AndProguard"/>
     </extensions>
     <extensions defaultExtensionNs="org.jetbrains.kotlin">
-        <!--suppress PluginXmlValidity -->
         <supportsKotlinPluginMode supportsK2="true"/>
     </extensions>
     <actions>
@@ -54,22 +53,22 @@
             <add-to-group group-id="ProjectViewPopupMenu" anchor="first"/>
         </group>
         <action id="and-proguard-tree" text="Obfuscate Tree" icon="/icons/infinity.svg"
-                class="com.murphy.action.ProguardTreeAction">
+                class="com.murphy.action.ObfuscateTreeAction">
             <add-to-group group-id="and-proguard-group" anchor="first"/>
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>
         <action id="and-proguard-node" text="Obfuscate Node" icon="/icons/infinity.svg"
-                class="com.murphy.action.ProguardNodeAction">
+                class="com.murphy.action.ObfuscateNodeAction">
             <add-to-group group-id="and-proguard-group" anchor="after" relative-to-action="and-proguard-tree"/>
             <add-to-group group-id="EditorPopupMenu" anchor="after" relative-to-action="and-proguard-tree"/>
         </action>
-        <action id="and-proguard-bean" text="JSON Mapping Interface" icon="AllIcons.FileTypes.Json"
-                class="com.murphy.action.ProguardBeanAction">
+        <action id="and-proguard-custom" text="Obfuscate Custom" icon="/icons/infinity.svg"
+                class="com.murphy.action.ObfuscateCustomAction">
             <add-to-group group-id="and-proguard-group" anchor="after" relative-to-action="and-proguard-node"/>
         </action>
-        <action id="and-proguard-package" text="Refactor Packages" icon="com.intellij.icons.ExpUiIcons.Nodes.EditFolder"
-                class="com.murphy.action.ProguardPackAction">
-            <add-to-group group-id="and-proguard-group" anchor="after" relative-to-action="and-proguard-bean"/>
+        <action id="and-proguard-bean" text="JSON Mapping Interface" icon="AllIcons.FileTypes.Json"
+                class="com.murphy.action.MappingBeanAction">
+            <add-to-group group-id="and-proguard-group" anchor="after" relative-to-action="and-proguard-custom"/>
         </action>
     </actions>
 </idea-plugin>

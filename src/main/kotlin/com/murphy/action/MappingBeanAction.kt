@@ -16,7 +16,7 @@ import com.murphy.util.PLUGIN_NAME
 import com.murphy.util.notifyError
 import com.murphy.util.notifyInfo
 
-class ProguardBeanAction : AnAction() {
+class MappingBeanAction : AnAction() {
 
     override fun actionPerformed(action: AnActionEvent) {
         val myPsi = action.getData(PlatformDataKeys.PSI_ELEMENT) ?: return

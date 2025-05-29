@@ -33,8 +33,8 @@ abstract class AbstractGenerator<T> {
         indicator.text = "$name $count of $total [$label]"
     }
 
-    protected fun <T> List<T>.alsoReset(name: String) = also {
-        it.count().takeIf { it > 0 }?.let {
+    protected fun <T> List<T>.alsoReset(name: String) = also { list ->
+        list.count().takeIf { it > 0 }?.let {
             count = 0
             total = it
             label = name
@@ -43,7 +43,7 @@ abstract class AbstractGenerator<T> {
 
     protected inline fun <reified T> List<PsiElement>.psiFilter(
         noinline predicate: ((T) -> Boolean)? = null
-    ) = service.dumbReadAction {
+    ): List<T> = service.dumbReadAction {
         if (predicate == null) filterIsInstance<T>()
         else filterIsInstance<T>().filter(predicate)
     }

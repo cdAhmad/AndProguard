@@ -2,14 +2,14 @@ package com.murphy.ui;
 
 import javax.swing.*;
 
-public class AndProguardForm {
+public class AndProguardConfig {
     private JPanel rootPane;
     private JCheckBox skipData;
     private JTextField classRule;
     private JTextField functionRule;
     private JTextField propertyRule;
     private JTextField resourceRule;
-    private JTextField resFileRule;
+    private JTextField layoutRule;
     private JTextField directoryRule;
     private JTextField digitWeight;
     private JTextField underlineWeight;
@@ -21,13 +21,13 @@ public class AndProguardForm {
     private JSlider comboSlider;
     private JSlider repeatSlider;
 
-    public AndProguardForm(boolean skipData, String[] rule, Double[] weight, String combinations) {
+    public AndProguardConfig(boolean skipData, String[] rule, Double[] weight, String combinations) {
         this.skipData.setSelected(skipData);
         this.classRule.setText(rule[0]);
         this.functionRule.setText(rule[1]);
         this.propertyRule.setText(rule[2]);
         this.resourceRule.setText(rule[3]);
-        this.resFileRule.setText(rule[4]);
+        this.layoutRule.setText(rule[4]);
         this.directoryRule.setText(rule[5]);
         this.combinations.setText(combinations);
         setDigitWeight(weight[0]);
@@ -92,12 +92,12 @@ public class AndProguardForm {
         this.resourceRule.setText(resourceRule);
     }
 
-    public String getResFileRule() {
-        return resFileRule.getText();
+    public String getLayoutRule() {
+        return layoutRule.getText();
     }
 
-    public void setResFileRule(String resFileRule) {
-        this.resFileRule.setText(resFileRule);
+    public void setLayoutRule(String resFileRule) {
+        this.layoutRule.setText(resFileRule);
     }
 
     public String getDirectoryRule() {

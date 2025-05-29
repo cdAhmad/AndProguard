@@ -1,66 +1,63 @@
 package com.murphy.config
 
 import com.intellij.openapi.options.Configurable
-import com.murphy.ui.AndProguardForm
+import com.murphy.ui.AndProguardConfig
 import javax.swing.JComponent
 
 class AndConfigurable : Configurable {
-    private val state by lazy { AndConfigState.getInstance() }
+    private val config by lazy { AndConfigState.getInstance() }
+    private val state get() = config.state
     private val form by lazy {
-        AndProguardForm(
+        AndProguardConfig(
             state.skipData,
             arrayOf(
                 state.classRule, state.functionRule, state.propertyRule,
-                state.resourceRule, state.resFileRule, state.directoryRule
+                state.resourceRule, state.layoutRule, state.directoryRule
             ),
             arrayOf(state.digitWeight, state.underlineWeight, state.comboWeight, state.repeatFactor),
             state.combinations
         )
     }
 
-    override fun createComponent(): JComponent? {
-        return form.panel
-    }
+    override fun createComponent(): JComponent? = form.panel
 
-    override fun isModified(): Boolean {
-        return state.classRule != form.classRule || state.functionRule != form.functionRule ||
-                state.propertyRule != form.propertyRule || state.resourceRule != form.resourceRule ||
-                state.resFileRule != form.resFileRule || state.directoryRule != form.directoryRule ||
-                state.skipData != form.skipData || state.combinations != form.combinations ||
-                state.digitWeight != form.digitWeight || state.underlineWeight != form.underlineWeight ||
-                state.comboWeight != form.comboWeight || state.repeatFactor != form.repeatFactor
-    }
+    override fun isModified(): Boolean = form.toState() != state
 
-    override fun apply() {
-        state.classRule = form.classRule
-        state.functionRule = form.functionRule
-        state.propertyRule = form.propertyRule
-        state.resourceRule = form.resourceRule
-        state.resFileRule = form.resFileRule
-        state.directoryRule = form.directoryRule
-        state.skipData = form.skipData
-        state.combinations = form.combinations
-        state.digitWeight = form.digitWeight
-        state.underlineWeight = form.underlineWeight
-        state.comboWeight = form.comboWeight
-        state.repeatFactor = form.repeatFactor
-        state.initNamingConfig()
-    }
+    override fun apply() = config.loadState(form.toState())
 
-    override fun reset() {
-        form.classRule = state.classRule
-        form.functionRule = state.functionRule
-        form.propertyRule = state.propertyRule
-        form.resourceRule = state.resourceRule
-        form.resFileRule = state.resFileRule
-        form.directoryRule = state.directoryRule
-        form.skipData = state.skipData
-        form.combinations = state.combinations
-        form.digitWeight = state.digitWeight
-        form.underlineWeight = state.underlineWeight
-        form.comboWeight = state.comboWeight
-        form.repeatFactor = state.repeatFactor
-    }
+    override fun reset() = form.copyFrom(state)
 
     override fun getDisplayName(): String = "AndProguard Config"
+
+    private fun AndProguardConfig.copyFrom(state: AndConfigState.State) {
+        classRule = state.classRule
+        functionRule = state.functionRule
+        propertyRule = state.propertyRule
+        resourceRule = state.resourceRule
+        layoutRule = state.layoutRule
+        directoryRule = state.directoryRule
+        skipData = state.skipData
+        combinations = state.combinations
+        digitWeight = state.digitWeight
+        underlineWeight = state.underlineWeight
+        comboWeight = state.comboWeight
+        repeatFactor = state.repeatFactor
+    }
+
+    private fun AndProguardConfig.toState(): AndConfigState.State {
+        return AndConfigState.State(
+            classRule = classRule,
+            functionRule = functionRule,
+            propertyRule = propertyRule,
+            resourceRule = resourceRule,
+            layoutRule = layoutRule,
+            directoryRule = directoryRule,
+            skipData = skipData,
+            combinations = combinations,
+            digitWeight = digitWeight,
+            underlineWeight = underlineWeight,
+            comboWeight = comboWeight,
+            repeatFactor = repeatFactor
+        )
+    }
 }
