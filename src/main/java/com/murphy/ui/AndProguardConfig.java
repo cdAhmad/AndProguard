@@ -11,6 +11,7 @@ public class AndProguardConfig {
     private JTextField resourceRule;
     private JTextField layoutRule;
     private JTextField directoryRule;
+    private JTextField obfuscateSeed;
     private JTextField digitWeight;
     private JTextField underlineWeight;
     private JTextField comboWeight;
@@ -21,7 +22,7 @@ public class AndProguardConfig {
     private JSlider comboSlider;
     private JSlider repeatSlider;
 
-    public AndProguardConfig(boolean skipData, String[] rule, Double[] weight, String combinations) {
+    public AndProguardConfig(boolean skipData, String[] rule, String seed, Double[] weight, String combinations) {
         this.skipData.setSelected(skipData);
         this.classRule.setText(rule[0]);
         this.functionRule.setText(rule[1]);
@@ -29,6 +30,7 @@ public class AndProguardConfig {
         this.resourceRule.setText(rule[3]);
         this.layoutRule.setText(rule[4]);
         this.directoryRule.setText(rule[5]);
+        this.obfuscateSeed.setText(seed);
         this.combinations.setText(combinations);
         setDigitWeight(weight[0]);
         setUnderlineWeight(weight[1]);
@@ -106,6 +108,14 @@ public class AndProguardConfig {
 
     public void setDirectoryRule(String directoryRule) {
         this.directoryRule.setText(directoryRule);
+    }
+
+    public String getObfuscateSeed() {
+        return obfuscateSeed.getText();
+    }
+
+    public void setObfuscateSeed(String obfuscateSeed) {
+        this.obfuscateSeed.setText(obfuscateSeed);
     }
 
     public boolean getSkipData() {

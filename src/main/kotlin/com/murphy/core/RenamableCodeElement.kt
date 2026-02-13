@@ -10,6 +10,7 @@ import com.intellij.psi.impl.source.*
 import com.intellij.psi.impl.source.tree.java.PsiLocalVariableImpl
 import com.intellij.psi.util.PsiMethodUtil.isMainMethod
 import com.murphy.action.CustomCheck
+import com.murphy.config.AndConfigState
 import org.jetbrains.kotlin.idea.isMainFunction
 import org.jetbrains.kotlin.idea.util.isAnonymousFunction
 import org.jetbrains.kotlin.lexer.KtTokens
@@ -41,9 +42,39 @@ class RenamableCodeElement(
         else -> null
     }
 
-    override fun performRename(project: Project, name: String?) {
-        val newName = name?.let { if (element is KtFile) "$it.kt" else it } ?: return
-        runRename(project, element, newName)
+    data class RenameStrategy(val baseName: String?, val formatter: ((String) -> String) = { it })
+
+    override fun performRename(project: Project, config: AndConfigState) {
+        val ob = obfuscator(config)
+
+        val strategy = when {
+            element.name.isNullOrEmpty() -> {
+                null
+            }
+
+            element is KtFile -> {
+                RenameStrategy(element.name.removeSuffix(".kt")) {
+                    "${it}.kt"
+                }
+            }
+
+            element is PsiBinaryFile -> {
+                val baseName = element.name.substringBeforeLast('.', missingDelimiterValue = element.name)
+                val extension = if ('.' in element.name) ".${element.name.substringAfterLast('.')}" else ""
+                RenameStrategy(baseName) {
+                    "${it}${extension}"
+                }
+            }
+
+            else -> RenameStrategy(element.name)
+        }
+
+        strategy?.apply {
+            baseName ?: return
+            if (!ob.isObfuscated(baseName)) {
+                runRename(project, element, formatter(ob.obfuscate(baseName)))
+            }
+        }
     }
 
     companion object {

@@ -47,12 +47,12 @@ java {
 }
 
 tasks {
-    publishPlugin {
-        // AndProguard token
-        val file = rootProject.file("token.properties")
-        val localProperties = loadProperties(file.path)
-        val tokenValue = localProperties["token"].toString()
-        token.set(tokenValue)
-        channels.set(listOf("Stable"))
-    }
+//    publishPlugin {
+//        // AndProguard token
+//        val file = rootProject.file("token.properties")
+//        val localProperties = loadProperties(file.path)
+//        val tokenValue = localProperties["token"].toString()
+//        token.set(tokenValue)
+//        channels.set(listOf("Stable"))
+//    }
 }

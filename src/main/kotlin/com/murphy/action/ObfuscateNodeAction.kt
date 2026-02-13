@@ -21,6 +21,7 @@ import com.murphy.config.AndConfigState
 import com.murphy.core.RenamableCodeElement.Companion.toRenamableCodeElement
 import com.murphy.core.RenamableElement
 import com.murphy.core.RenamableXmlElement.Companion.toRenamableXmlElement
+import com.murphy.core.obfuscator
 import com.murphy.util.PLUGIN_NAME
 import com.murphy.util.notifyWarn
 import org.jetbrains.kotlin.psi.*
@@ -45,8 +46,7 @@ class ObfuscateNodeAction : AnAction() {
                 return@runBackgroundableTask
             }
             val runnable = Runnable {
-                val newName = renamableElement.namingIndex?.let { config.namingNodes[it].randomNaming }
-                renamableElement.performRename(myProject, newName)
+                renamableElement.performRename(myProject, config)
             }
             ApplicationManager.getApplication().invokeAndWait {
                 if (service.isDumb) {

@@ -34,6 +34,7 @@
     <depends>org.jetbrains.kotlin</depends>
     <depends>org.jetbrains.android</depends>
 
+
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
@@ -44,6 +45,10 @@
                 id="and-proguard-config"
                 instance="com.murphy.config.AndConfigurable"
                 displayName="AndProguard"/>
+        <!-- 文档提供者：为 Kotlin 语言 -->
+        <documentationProvider
+                implementationClass="com.murphy.doc.AppendDocProvider"
+                order="first"/>
     </extensions>
     <extensions defaultExtensionNs="org.jetbrains.kotlin">
         <supportsKotlinPluginMode supportsK2="true"/>

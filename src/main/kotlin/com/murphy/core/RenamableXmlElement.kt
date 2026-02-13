@@ -10,6 +10,7 @@ import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.psi.search.SearchScope
 import com.intellij.psi.xml.XmlAttributeValue
 import com.intellij.psi.xml.XmlFile
+import com.murphy.config.AndConfigState
 import com.murphy.util.LogUtil
 
 class RenamableXmlElement(
@@ -23,8 +24,12 @@ class RenamableXmlElement(
         else -> null
     }
 
-    override fun performRename(project: Project, name: String?) {
-        val newName = name ?: return
+    override fun performRename(project: Project, config: AndConfigState) {
+        val ob = obfuscator(config)
+        if (ob.isObfuscated(element.name)) {
+            return
+        }
+        val newName = ob.obfuscate(element.name)
         runRename(project, element.delegate, newName)
         references?.run {
             val newRefName = when (element.delegate) {

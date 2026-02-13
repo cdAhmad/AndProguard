@@ -63,8 +63,7 @@ fun obfuscateByCheck(
             list.forEachIndexed { index, item ->
                 indicator.fraction = index / total.toDouble()
                 indicator.text = "${item.currentName} ${index + 1}/$total"
-                val newName = item.namingIndex?.let { namingPool.getOrNull(it) }
-                item.performRename(myProject, newName)
+                item.performRename(myProject,config)
             }
         }
         ApplicationManager.getApplication().invokeAndWait {

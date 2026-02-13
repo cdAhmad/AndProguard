@@ -20,6 +20,7 @@ class AndConfigState : PersistentStateComponent<AndConfigState.State> {
         val resourceRule: String = "[^LW2]{5,12}([_][^LW2]{5,12}){0,1}",
         val layoutRule: String = "[^LW2]{5,12}([_][^LW2]{5,12}){1,2}",
         val directoryRule: String = "[^LW2]{5,12}",
+        val obfuscateSeed: String = "default",
         val skipData: Boolean = true,
         val digitWeight: Double = 0.15,
         val underlineWeight: Double = 0.07,
@@ -40,13 +41,14 @@ class AndConfigState : PersistentStateComponent<AndConfigState.State> {
     //val randomResourceName get() = namingNodes[3].randomNaming
     val randomResFileName get() = namingNodes[4].randomNaming
     val randomDirectoryName get() = namingNodes[5].randomNaming
-
     private var myState = State()
     override fun getState(): AndConfigState.State = myState
     override fun loadState(state: AndConfigState.State) {
         myState = state
         initNamingConfig()
     }
+
+    fun getSeed() = myState.obfuscateSeed
 
     override fun noStateLoaded() {
         super.noStateLoaded()

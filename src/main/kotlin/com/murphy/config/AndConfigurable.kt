@@ -12,8 +12,9 @@ class AndConfigurable : Configurable {
             state.skipData,
             arrayOf(
                 state.classRule, state.functionRule, state.propertyRule,
-                state.resourceRule, state.layoutRule, state.directoryRule
+                state.resourceRule, state.layoutRule, state.directoryRule,
             ),
+            state.obfuscateSeed,
             arrayOf(state.digitWeight, state.underlineWeight, state.comboWeight, state.repeatFactor),
             state.combinations
         )
@@ -35,6 +36,7 @@ class AndConfigurable : Configurable {
         propertyRule = state.propertyRule
         resourceRule = state.resourceRule
         layoutRule = state.layoutRule
+        obfuscateSeed = state.obfuscateSeed
         directoryRule = state.directoryRule
         skipData = state.skipData
         combinations = state.combinations
@@ -52,6 +54,7 @@ class AndConfigurable : Configurable {
             resourceRule = resourceRule,
             layoutRule = layoutRule,
             directoryRule = directoryRule,
+            obfuscateSeed = obfuscateSeed,
             skipData = skipData,
             combinations = combinations,
             digitWeight = digitWeight,
